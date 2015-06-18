@@ -30,7 +30,6 @@ def getConfig(path):
     for each in settings.sections():
         portGroups.append(
             [each, settings.get(each, 'Port'), settings.get(each, 'Webhook')])
-    print portGroups
     return portGroups
 
 
@@ -47,7 +46,6 @@ def sync(portGroups):
             if '-' in each[1]:
                 begin = int(each[1].split('-')[0])
                 end = int(each[1].split('-')[1]) + 1
-                print begin, end
                 for i in range(begin, end):
                     portstat_rules.write(
                         '/sbin/iptables -A PORTSTAT -p tcp --dport %s\n' % str(i))
@@ -62,7 +60,6 @@ def sync(portGroups):
 
 
 def upload(portGroups):
-    print portGroups
     # stats = {9999: 11111}, {10000: 11112}
     stats = {}
     for each in os.popen('iptables -vxn -L PORTSTAT').readlines()[2:]:
@@ -72,7 +69,6 @@ def upload(portGroups):
             stats[port] += value
         else:
             stats[port] = value
-    print stats
     # datas = [{'1.php': {9999: 11111}}, {'2.php': {10000: 122222, 10001: 1212414}}]
     datas = []
     for each in portGroups:
@@ -81,14 +77,11 @@ def upload(portGroups):
             begin = int(each[1].split('-')[0])
             end = int(each[1].split('-')[1]) + 1
             for i in range(begin, end):
-                print i
                 line[i] = stats[i]
         else:
             line[each[1]] = stats[int(each[1])]
         datas.append({each[2]: line})
-    print datas
     for each in datas:
-        print each.values()[0]
         req = urllib2.Request(each.keys()[0], urlencode(each.values()[0]))
         urllib2.urlopen(req)
     os.system('/sbin/iptables -Z PORTSTAT')
