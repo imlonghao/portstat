@@ -62,7 +62,7 @@ def sync(portGroups):
 def upload(portGroups):
     # stats = {9999: 11111}, {10000: 11112}
     stats = {}
-    for each in os.popen('iptables -vxn -L PORTSTAT').readlines()[2:]:
+    for each in os.popen('/sbin/iptables -vxn -L PORTSTAT').readlines()[2:]:
         port = int(each.strip().split()[9][4:])
         value = int(each.strip().split()[1])
         if port in stats:
