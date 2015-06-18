@@ -1,3 +1,3 @@
 #!/usr/bin/env python
 
-import portstat
+from portstat import portstat
