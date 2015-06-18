@@ -88,15 +88,17 @@ def upload(portGroups):
 
 
 def main():
-    parser = argparse.ArgumentParser()
+    parser = argparse.ArgumentParser(
+        description='A simple port traffic monitor')
     parser.add_argument('-c', '--config', type=str,
                         default='/etc/portstat.conf', help='Path of the config file.')
     group = parser.add_mutually_exclusive_group()
-    group.add_argument('-v', '--version', help='Show portstat version.')
     group.add_argument(
-        '-s', '--sync', help='Sync the portstat settings and iptables.')
+        '-v', '--version', help='Show portstat version.', action='store_true')
     group.add_argument(
-        '-u', '--upload', help='Upload the port stat with webhook.')
+        '-s', '--sync', help='Sync the portstat settings and iptables.', action='store_true')
+    group.add_argument(
+        '-u', '--upload', help='Upload the port stat with webhook.', action='store_true')
     args = parser.parse_args()
     portGroups = getConfig(args.config)
     if args.version:
