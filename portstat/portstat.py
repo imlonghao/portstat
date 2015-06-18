@@ -36,8 +36,8 @@ def getConfig(path):
 def sync(portGroups):
     with open('/etc/portstat.rules', 'w') as portstat_rules:
         portstat_rules.write('#!/bin/bash\n')
-        portstat_rules.write('/sbin/iptables -X\n')
         portstat_rules.write('/sbin/iptables -F\n')
+        portstat_rules.write('/sbin/iptables -X\n')
         portstat_rules.write('/sbin/iptables -N PORTSTAT\n')
         portstat_rules.write('/sbin/iptables -A INPUT -j PORTSTAT\n')
         portstat_rules.write('/sbin/iptables -A OUTPUT -j PORTSTAT\n')
