@@ -93,11 +93,15 @@ Webhook=https://imlonghao.com/?imlonghao
 [shadowsocks]
 Port=10000-10010
 Webhook=https://imlonghao.com/?shadowsocks
+
+[test]
+Port=22,111,8080
+Webhook=https://imlonghao.com/?test
 ```
 
 `[name]` used to distinguish every port you want to monitor.
  
-`Port=111` used to declare the port you want to monitor, it should be a int like `111` , or a range like `10000-10010`
+`Port=111` used to declare the port you want to monitor, it should be a int like `111` , or a range like `10000-10010`, or `80,81,8080,8888` .
 
 `Webhook=https://imlonghao.com/` used to received the traffic information, portstat will post the information to the webhook like that
 

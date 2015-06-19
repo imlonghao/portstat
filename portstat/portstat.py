@@ -50,6 +50,15 @@ def sync(portGroups):
                         '/sbin/iptables -A PORTSTAT -p tcp --dport %s\n' % str(i))
                     portstat_rules.write(
                         '/sbin/iptables -A PORTSTAT -p tcp --sport %s\n' % str(i))
+            elif ',' in each[1]:
+                portLists = each[1].split(',')
+                while '' in portLists:
+                    portLists.remove('')
+                for i in portLists:
+                    portstat_rules.write(
+                        '/sbin/iptables -A PORTSTAT -p tcp --dport %s\n' % i)
+                    portstat_rules.write(
+                        '/sbin/iptables -A PORTSTAT -p tcp --sport %s\n' % i)
             else:
                 portstat_rules.write(
                     '/sbin/iptables -A PORTSTAT -p tcp --dport %s\n' % each[1])
@@ -77,6 +86,12 @@ def upload(portGroups):
             end = int(each[1].split('-')[1]) + 1
             for i in range(begin, end):
                 line[i] = stats[i]
+        elif ',' in each[1]:
+            portLists = each[1].split(',')
+            while '' in portLists:
+                portLists.remove('')
+            for i in portLists:
+                line[int(i)] = stats[int(i)]
         else:
             line[int(each[1])] = stats[int(each[1])]
         datas.append({each[2]: line})
