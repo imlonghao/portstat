@@ -78,7 +78,7 @@ def upload(portGroups):
             for i in range(begin, end):
                 line[i] = stats[i]
         else:
-            line[each[1]] = stats[int(each[1])]
+            line[int(each[1])] = stats[int(each[1])]
         datas.append({each[2]: line})
     for each in datas:
         req = urllib2.Request(each.keys()[0], urlencode(each.values()[0]))
