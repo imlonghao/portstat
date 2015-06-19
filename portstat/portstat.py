@@ -16,7 +16,7 @@ except ImportError:
     import ConfigParser as configparser
 
 __author__ = 'imlonghao'
-__version__ = '0.0.1'
+__version__ = '0.0.2'
 
 
 def version():
