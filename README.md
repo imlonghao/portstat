@@ -1,6 +1,6 @@
 # portstat 
 
-![](https://travis-ci.org/imlonghao/portstat.svg) ![](https://landscape.io/github/imlonghao/portstat/master/landscape.svg?style=flat)
+![](https://badge.fury.io/py/portstat.svg) ![](https://travis-ci.org/imlonghao/portstat.svg) ![](https://landscape.io/github/imlonghao/portstat/master/landscape.svg?style=flat)
 
 A simple port traffic monitor
 
