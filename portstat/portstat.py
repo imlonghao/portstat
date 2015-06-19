@@ -3,7 +3,11 @@
 
 import os
 import argparse
-from urllib import urlencode
+
+try:
+    from urllib.parse import urlencode
+except ImportError:
+    from urllib import urlencode
 
 try:
     import urllib.request as urllib2
