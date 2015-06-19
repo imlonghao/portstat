@@ -28,6 +28,9 @@ Add the following line to `/etc/rc.local` to run portstat on the startup.
 Notice that add it before `exit 0` .
 
 ```
+/sbin/iptables -N PORTSTAT
+/sbin/iptables -A INPUT -j PORTSTAT
+/sbin/iptables -A OUTPUT -j PORTSTAT
 /bin/bash /etc/portstat.rules
 ```
 
@@ -42,6 +45,8 @@ Run it every 5 minutes like the following
 ```
 */5 * * * * /usr/local/bin/portstat -u
 ```
+
+To activate the new iptables rules, please run the `/sbin/iptables` command manually or issue a `reboot` command.
 
 After that, you have installed portstat successfully.
 
