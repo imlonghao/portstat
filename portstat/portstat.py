@@ -20,7 +20,7 @@ except ImportError:
     import ConfigParser as configparser
 
 __author__ = 'imlonghao'
-__version__ = '0.0.3'
+__version__ = '0.0.4'
 
 
 def version():
@@ -96,7 +96,7 @@ def upload(portGroups):
             line[int(each[1])] = stats[int(each[1])]
         datas.append({each[2]: line})
     for each in datas:
-        req = urllib2.Request(each.keys()[0], urlencode(each.values()[0]))
+        req = urllib2.Request(each.keys()[0], urlencode(each.values()[0]).encode('utf-8'))
         urllib2.urlopen(req)
     os.system('/sbin/iptables -Z PORTSTAT')
 
