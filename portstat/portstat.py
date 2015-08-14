@@ -47,9 +47,11 @@ def sync(portGroups):
                 end = int(each[1].split('-')[1]) + 1
                 for i in range(begin, end):
                     portstat_rules.write(
-                        '/sbin/iptables -A PORTSTAT -p tcp --dport %s\n' % str(i))
+                        '/sbin/iptables -A PORTSTAT -p tcp --dport %s\n'
+                        % str(i))
                     portstat_rules.write(
-                        '/sbin/iptables -A PORTSTAT -p tcp --sport %s\n' % str(i))
+                        '/sbin/iptables -A PORTSTAT -p tcp --sport %s\n'
+                        % str(i))
             elif ',' in each[1]:
                 portLists = each[1].split(',')
                 while '' in portLists:
@@ -77,7 +79,7 @@ def upload(portGroups):
             stats[port] += value
         else:
             stats[port] = value
-    # datas = [{'1.php': {9999: 11111}}, {'2.php': {10000: 122222, 10001: 1212414}}]
+    # datas = [{'1.php': {22: 100}}, {'2.php': {21: 101, 22: 99}}]
     datas = []
     for each in portGroups:
         line = {}
@@ -96,7 +98,8 @@ def upload(portGroups):
             line[int(each[1])] = stats[int(each[1])]
         datas.append({each[2]: line})
     for each in datas:
-        req = urllib2.Request(each.keys()[0], urlencode(each.values()[0]).encode('utf-8'))
+        req = urllib2.Request(
+            each.keys()[0], urlencode(each.values()[0]).encode('utf-8'))
         urllib2.urlopen(req)
     os.system('/sbin/iptables -Z PORTSTAT')
 
@@ -105,14 +108,17 @@ def main():
     parser = argparse.ArgumentParser(
         description='A simple port traffic monitor')
     parser.add_argument('-c', '--config', type=str,
-                        default='/etc/portstat.conf', help='Path of the config file.')
+                        default='/etc/portstat.conf',
+                        help='Path of the config file.')
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         '-v', '--version', help='Show portstat version.', action='store_true')
     group.add_argument(
-        '-s', '--sync', help='Sync the portstat settings and iptables.', action='store_true')
+        '-s', '--sync',
+        help='Sync the portstat settings and iptables.', action='store_true')
     group.add_argument(
-        '-u', '--upload', help='Upload the port stat with webhook.', action='store_true')
+        '-u', '--upload',
+        help='Upload the port stat with webhook.', action='store_true')
     args = parser.parse_args()
     portGroups = getConfig(args.config)
     if args.version:
