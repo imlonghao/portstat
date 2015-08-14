@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 import os
+import time
 import argparse
 
 try:
@@ -99,7 +100,8 @@ def upload(portGroups):
         datas.append({each[2]: line})
     for each in datas:
         req = urllib2.Request(
-            each.keys()[0], urlencode(each.values()[0]).encode('utf-8'))
+            '%s#%s' % (each.keys()[0], str(int(time.time()))),
+            urlencode(each.values()[0]).encode('utf-8'))
         urllib2.urlopen(req)
     os.system('/sbin/iptables -Z PORTSTAT')
 
